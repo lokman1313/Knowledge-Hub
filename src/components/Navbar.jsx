@@ -38,10 +38,10 @@ export default function Navbar() {
     <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
       <header className="mx-auto flex h-16  items-center justify-between px-6">
         
-        <div className="flex items-center justify-center">
+        <Link className="flex items-center justify-center" href={"/"}>
           <Image src={logo} height={50} width={50} alt="logo"></Image>
-          <p className="font-bold text-xl">Knowledge<span className="text-orange-500">Hub</span></p>
-        </div>
+          <p className="font-bold text-xl md:text-2xl">Knowledge<span className="text-orange-500">Hub</span></p>
+        </Link>
 
         <div className="flex items-center md:flex-1 md:justify-end md:gap-6">
           <ThemeSwitch></ThemeSwitch>
@@ -65,8 +65,8 @@ export default function Navbar() {
 
           <Separator orientation="vertical" className="hidden md:block " />
           <div className="hidden items-center gap-4 md:flex">
-            <Link href="#">Login</Link>
-            <Button>Sign Up</Button>
+            <Link href="/login">Login</Link>
+            <Link href="/signup" className="bg-orange-500 rounded-full p-2 text-white px-4 text-sm">Sign Up</Link>
           </div>
 
           <button
