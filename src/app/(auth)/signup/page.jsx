@@ -13,9 +13,9 @@ import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { FiUploadCloud, FiX } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,9 +25,6 @@ const SignUp = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-
-  const searchParams = useSearchParams().get("redirect") || "/";
-  const router = useRouter();
 
   const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_BB_UPLOAD_API;
 
@@ -102,6 +99,7 @@ const SignUp = () => {
       email,
       password,
       image: imageUrl || undefined,
+      callbackURL : "/select-role"
     });
 
     setLoading(false);
@@ -115,7 +113,7 @@ console.log("ERROR:", error);
 
     if (data) {
       toast.success("Account created successfully!");
-      router.push(searchParams);
+      redirect("/select-role")
     }
   };
   
@@ -124,7 +122,7 @@ console.log("ERROR:", error);
     setGoogleLoading(true);
     const { error } = await authClient.signIn.social({
       provider: "google",
-      callbackURL: searchParams,
+      callbackURL : "/select-role"
     });
 
     if (error) {
@@ -296,7 +294,7 @@ console.log("ERROR:", error);
             <p className="text-center text-sm text-zinc-400 mt-6">
               Already have an account?{" "}
               <Link
-                href={`/signin?redirect=${searchParams}`}
+                href={`/signin`}
                 className="text-orange-500 font-semibold hover:underline"
               >
                 Sign In

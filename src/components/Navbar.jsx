@@ -1,59 +1,75 @@
-"use client"
-import logo from "../../public/knowledgehub_icon_only.png"
+"use client";
+import logo from "../../public/knowledgehub_icon_only.png";
 import { useState } from "react";
-import { Button, Separator } from "@heroui/react";
+import { Button, Separator, Spinner } from "@heroui/react";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import Image from "next/image";
 import { ThemeSwitch } from "./ThemeSwitch";
+import { authClient } from "@/lib/auth-client"; // ✅ authClient import করা হয়েছে
+import { FaArrowRight } from "react-icons/fa";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems = [
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+
+  const baseNavItems = [
     { label: "Home", href: "/", isActive: true },
     { label: "Browse", href: "/browse", isActive: false },
-    { label: "Dashboard", href: "/dashboard/librarian", isActive: false }, 
   ];
+
   const dashboardLinks = {
-    seeker: "/dashboard/reader",
-    recruiter: "/dashboard/librarian",
+    user: "/dashboard/reader",
+    librarian: "/dashboard/librarian",
     admin: "/dashboard/admin",
   };
-  // const navItems = user?.email
-  //   ? [
-  //       ...baseNavItems,
-  //       {
-  //         label: "Dashboard",
-  //         href: dashboardLinks[user.role] || dashboardLinks.reader,
-  //       },
-  //     ]
-  //   : baseNavItems;
+
+  const navItems = user?.email
+    ? [
+        ...baseNavItems,
+        {
+          label: "Dashboard",
+          href: dashboardLinks[user.role] || dashboardLinks.user,
+        },
+      ]
+    : baseNavItems;
 
   const [activeItem, setActiveItem] = useState(
-    navItems.find(item => item.isActive)?.label || navItems[0].label
+    navItems.find((item) => item.isActive)?.label || navItems[0].label,
   );
+
+  const handleLogout = async () => {
+    await authClient.signOut();
+  };
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
-      <header className="mx-auto flex h-16  items-center justify-between px-6">
-        
+      <header className="mx-auto flex h-16 items-center justify-between px-6">
         <Link className="flex items-center justify-center" href={"/"}>
-          <Image src={logo} height={50} width={50} alt="logo"></Image>
-          <p className="font-bold text-xl md:text-2xl">Knowledge<span className="text-orange-500">Hub</span></p>
+          <Image src={logo} height={50} width={50} alt="logo" />
+          <p className="font-bold text-xl md:text-2xl">
+            Knowledge<span className="text-orange-500">Hub</span>
+          </p>
         </Link>
 
         <div className="flex items-center md:flex-1 md:justify-end md:gap-6">
-          <ThemeSwitch></ThemeSwitch>
+          <ThemeSwitch />
+
           <ul className="hidden items-center gap-6 md:flex bg-gray-300 p-2 px-4 rounded-full">
             {navItems.map((item, index) => {
               const isCurrentActive = activeItem === item.label;
               return (
                 <li key={index}>
-                  <Link 
+                  <Link
                     href={item.href}
-                    onClick={() => setActiveItem(item.label)} 
-                    className={isCurrentActive ? "font-bold text-orange-600" : "text-gray-700"}
+                    onClick={() => setActiveItem(item.label)}
+                    className={
+                      isCurrentActive
+                        ? "font-bold text-orange-600"
+                        : "text-gray-700"
+                    }
                     aria-current={isCurrentActive ? "page" : undefined}
                   >
                     {item.label}
@@ -63,10 +79,48 @@ export default function Navbar() {
             })}
           </ul>
 
-          <Separator orientation="vertical" className="hidden md:block " />
+          <Separator orientation="vertical" className="hidden md:block" />
+
+          {/* ✅ Desktop: User থাকলে Logout, না থাকলে Login/Signup */}
           <div className="hidden items-center gap-4 md:flex">
-            <Link href="/login">Login</Link>
-            <Link href="/signup" className="bg-orange-500 rounded-full p-2 text-white px-4 text-sm">Sign Up</Link>
+            {user ? (
+              <>
+                <div className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-sm overflow-hidden">
+                  {isPending ? (
+                    <Spinner color="warning" />
+                  ) : user?.image ? (
+                    <Image
+                      src={user.image}
+                      width={36}
+                      height={36}
+                      alt="avatar"
+                      className="rounded-full object-cover"
+                    />
+                  ) : (
+                    <span>
+                      {user?.name?.charAt(0).toUpperCase() ||
+                        user?.email?.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 rounded-full p-2 text-white px-4 text-sm flex justify-center items-center gap-2"
+                >
+                  Logout <FaArrowRight></FaArrowRight>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">Login</Link>
+                <Link
+                  href="/signup"
+                  className="bg-orange-500 rounded-full p-2 text-white px-4 text-sm"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           <button
@@ -79,10 +133,9 @@ export default function Navbar() {
             <CiMenuBurger />
           </button>
         </div>
-
       </header>
 
-      {/* Mobile Menu Dropdown - সেন্টারে থাকবে */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
           <ul className="flex flex-col items-center justify-center gap-2 p-4 text-center">
@@ -90,8 +143,8 @@ export default function Navbar() {
               const isCurrentActive = activeItem === item.label;
               return (
                 <li key={index} className="w-full">
-                  <Link 
-                    href={item.href} 
+                  <Link
+                    href={item.href}
                     onClick={() => {
                       setActiveItem(item.label);
                       setIsMenuOpen(false);
@@ -103,13 +156,30 @@ export default function Navbar() {
                 </li>
               );
             })}
-            
-            {/* Login এবং Sign Up সেকশন */}
+
+            {/* ✅ Mobile: User থাকলে Logout, না থাকলে Login/Signup */}
             <li className="mt-4 flex flex-col items-center gap-3 border-t border-separator pt-4 w-full">
-              <Link href="#" className="block py-2 w-full justify-center">
-                Login
-              </Link>
-              <Button className="w-full max-w-xs">Sign Up</Button>
+              {user ? (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full max-w-xs bg-orange-500 rounded-full p-2 text-white text-sm"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block py-2 w-full justify-center"
+                  >
+                    Login
+                  </Link>
+                  <Button className="w-full max-w-xs">Sign Up</Button>
+                </>
+              )}
             </li>
           </ul>
         </div>
