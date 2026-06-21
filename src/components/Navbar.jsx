@@ -21,7 +21,7 @@ export default function Navbar() {
   ];
 
   const dashboardLinks = {
-    user: "/dashboard/reader",
+    user: "/dashboard/user",
     librarian: "/dashboard/librarian",
     admin: "/dashboard/admin",
   };
@@ -81,11 +81,10 @@ export default function Navbar() {
 
           <Separator orientation="vertical" className="hidden md:block" />
 
-          {/* ✅ Desktop: User থাকলে Logout, না থাকলে Login/Signup */}
           <div className="hidden items-center gap-4 md:flex">
             {user ? (
               <>
-                <div className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-sm overflow-hidden">
+                <div className="w-9 h-9 rounded-full  flex items-center justify-center text-white font-bold text-sm overflow-hidden">
                   {isPending ? (
                     <Spinner color="warning" />
                   ) : user?.image ? (
@@ -157,7 +156,6 @@ export default function Navbar() {
               );
             })}
 
-            {/* ✅ Mobile: User থাকলে Logout, না থাকলে Login/Signup */}
             <li className="mt-4 flex flex-col items-center gap-3 border-t border-separator pt-4 w-full">
               {user ? (
                 <button
@@ -177,7 +175,12 @@ export default function Navbar() {
                   >
                     Login
                   </Link>
-                  <Button className="w-full max-w-xs">Sign Up</Button>
+                <Link
+                  href="/signup"
+                  className="bg-orange-500 rounded-full p-2 text-white px-4 text-sm"
+                >
+                  Sign Up
+                </Link>
                 </>
               )}
             </li>

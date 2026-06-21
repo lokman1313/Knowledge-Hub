@@ -1,54 +1,129 @@
 "use client";
 
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {useState} from "react";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import {FiMenu} from "react-icons/fi";
 import {
-  FiMenu,
-  FiHome,
-  FiBook,
-  FiUsers,
-  FiRepeat,
-  FiUser,
-} from "react-icons/fi";
-import {Button, Drawer} from "@heroui/react";
+  FaTachometerAlt,
+  FaBook,
+  FaUsers,
+  FaTruck,
+  FaUser,
+  FaPlusCircle,
+  FaClipboardList,
+  FaCheckCircle,
+  FaMoneyBillWave,
+  FaStar,
+} from "react-icons/fa";
+import { Button, Drawer } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 export default function DashboardSidebar() {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const navItems = [
-    {
-      icon: FiHome,
-      href: "/dashboard/librarian",
-      label: "Dashboard",
-    },
-    {
-      icon: FiBook,
-      href: "/dashboard/librarian/books",
-      label: "Books",
-    },
-    {
-      icon: FiUsers,
-      href: "/dashboard/librarian/members",
-      label: "Members",
-    },
-    {
-      icon: FiRepeat,
-      href: "/dashboard/librarian/borrowings",
-      label: "Borrowings",
-    },
-    {
-      icon: FiUser,
-      href: "/dashboard/librarian/profile",
-      label: "Profile",
-    },
-  ];
+  const userNavLinks = [
+  {
+    icon: FaTachometerAlt,
+    href: "/dashboard/user",
+    label: "Dashboard",
+  },
+  {
+    icon: FaTruck,
+    href: "/dashboard/user/deliveries",
+    label: "Delivery History",
+  },
+  {
+    icon: FaBook,
+    href: "/dashboard/user/reading-list",
+    label: "My Reading List",
+  },
+  {
+    icon: FaStar,
+    href: "/dashboard/user/reviews",
+    label: "My Reviews",
+  },
+  {
+    icon: FaUser,
+    href: "/dashboard/user/profile",
+    label: "Profile",
+  },
+];
+ const librarianNavLinks = [
+  {
+    icon: FaTachometerAlt,
+    href: "/dashboard/librarian",
+    label: "Dashboard",
+  },
+  {
+    icon: FaPlusCircle,
+    href: "/dashboard/librarian/add-book",
+    label: "Add Book",
+  },
+  {
+    icon: FaClipboardList,
+    href: "/dashboard/librarian/inventory",
+    label: "Manage Inventory",
+  },
+  {
+    icon: FaTruck,
+    href: "/dashboard/librarian/deliveries",
+    label: "Manage Deliveries",
+  },
+  {
+    icon: FaUser,
+    href: "/dashboard/librarian/profile",
+    label: "Profile",
+  },
+];
+ const adminNavLinks = [
+  {
+    icon: FaTachometerAlt,
+    href: "/dashboard/admin",
+    label: "Dashboard",
+  },
+  {
+    icon: FaCheckCircle,
+    href: "/dashboard/admin/book-approvals",
+    label: "Book Approval Queue",
+  },
+  {
+    icon: FaUsers,
+    href: "/dashboard/admin/users",
+    label: "Manage Users",
+  },
+  {
+    icon: FaBook,
+    href: "/dashboard/admin/books",
+    label: "Manage All Books",
+  },
+  {
+    icon: FaMoneyBillWave,
+    href: "/dashboard/admin/transactions",
+    label: "Transactions",
+  },
+  {
+    icon: FaUser,
+    href: "/dashboard/admin/profile",
+    label: "Profile",
+  },
+];
 
-  const navLinks = (
+ const navLinks = {
+  user: userNavLinks,
+  librarian: librarianNavLinks,
+  admin: adminNavLinks,
+};
+
+const navItems = navLinks[user?.role] || userNavLinks;
+  const navContent = (
     <ul className="flex flex-col gap-2">
       {navItems.map((item) => {
-       const isActive = pathname === item.href;
+        const isActive = pathname === item.href;
 
         return (
           <li key={item.href}>
@@ -66,9 +141,7 @@ export default function DashboardSidebar() {
             >
               <item.icon
                 size={18}
-                className={
-                  isActive ? "text-orange-500" : "text-gray-500"
-                }
+                className={isActive ? "text-orange-500" : "text-gray-500"}
               />
               <span>{item.label}</span>
             </Link>
@@ -83,12 +156,12 @@ export default function DashboardSidebar() {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:block w-64 shrink-0 border-r border-gray-200  p-4 min-h-[calc(100vh-64px)] sticky top-16">
         <div className="mb-6 px-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wider ">
-            Librarian Menu
+          <h2 className="text-xs font-semibold uppercase tracking-wider">
+            {user?.role || "User"} Menu
           </h2>
         </div>
 
-        {navLinks}
+        {navContent}
       </aside>
 
       {/* Mobile Floating Menu Button */}
@@ -117,7 +190,7 @@ export default function DashboardSidebar() {
                 </Drawer.Heading>
               </Drawer.Header>
 
-              <Drawer.Body>{navLinks}</Drawer.Body>
+              <Drawer.Body>{navContent}</Drawer.Body>
             </Drawer.Dialog>
           </Drawer.Content>
         </Drawer.Backdrop>

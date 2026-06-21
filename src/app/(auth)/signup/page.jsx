@@ -21,6 +21,7 @@ const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [confirmVisible, setConfirmVisible] = useState(false);
 
   const [isUploading, setIsUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
@@ -92,19 +93,27 @@ const SignUp = () => {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const { name, email, password } = Object.fromEntries(formData.entries());
+    const { name, email, password, confirmPassword } = Object.fromEntries(
+      formData.entries(),
+    );
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      setLoading(false);
+      return;
+    }
 
     const { data, error } = await authClient.signUp.email({
       name,
       email,
       password,
       image: imageUrl || undefined,
-      callbackURL : "/select-role"
+      callbackURL: "/select-role",
     });
 
     setLoading(false);
-console.log("DATA:", data);
-console.log("ERROR:", error);
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
     if (error) {
       console.error(error);
       toast.error(error.message || "Something went wrong. Try again!");
@@ -113,16 +122,16 @@ console.log("ERROR:", error);
 
     if (data) {
       toast.success("Account created successfully!");
-      redirect("/select-role")
+      redirect("/select-role");
     }
   };
-  
+
   // Google Sign Up
   const handleGoogleSignUp = async () => {
     setGoogleLoading(true);
     const { error } = await authClient.signIn.social({
       provider: "google",
-      callbackURL : "/select-role"
+      callbackURL: "/select-role",
     });
 
     if (error) {
@@ -249,6 +258,39 @@ console.log("ERROR:", error);
                       aria-label={isVisible ? "Hide password" : "Show password"}
                     >
                       {isVisible ? (
+                        <FaEyeSlash className="size-4" />
+                      ) : (
+                        <FaEye className="size-4" />
+                      )}
+                    </Button>
+                  </InputGroup.Suffix>
+                </InputGroup>
+              </TextField>
+              {/* confrim password */}
+              <TextField className="w-full text-white">
+                <Label className="text-zinc-300 font-medium mb-1.5 block text-sm">
+                  Confirm Password
+                </Label>
+
+                <InputGroup className="bg-zinc-900/50 border border-white/10 rounded-xl focus-within:border-orange-500/50">
+                  <InputGroup.Input
+                    name="confirmPassword"
+                    type={confirmVisible ? "text" : "password"}
+                    placeholder="Confirm your password"
+                    required
+                    className="text-white placeholder:text-zinc-500 bg-transparent"
+                  />
+
+                  <InputGroup.Suffix>
+                    <Button
+                      isIconOnly
+                      variant="light"
+                      size="sm"
+                      type="button"
+                      className="text-zinc-400 hover:text-white"
+                      onPress={() => setConfirmVisible(!confirmVisible)}
+                    >
+                      {confirmVisible ? (
                         <FaEyeSlash className="size-4" />
                       ) : (
                         <FaEye className="size-4" />
