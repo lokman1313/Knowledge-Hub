@@ -1,12 +1,12 @@
 "use client";
 import logo from "../../public/knowledgehub_icon_only.png";
 import { useState } from "react";
-import { Button, Separator, Spinner } from "@heroui/react";
+import { Separator, Spinner } from "@heroui/react";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import Image from "next/image";
 import { ThemeSwitch } from "./ThemeSwitch";
-import { authClient } from "@/lib/auth-client"; // ✅ authClient import করা হয়েছে
+import { authClient } from "@/lib/auth-client";
 import { FaArrowRight } from "react-icons/fa";
 
 export default function Navbar() {
@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const baseNavItems = [
     { label: "Home", href: "/", isActive: true },
-    { label: "Browse", href: "/browse", isActive: false },
+    { label: "Browse", href: "/browse?page=1", isActive: false },
   ];
 
   const dashboardLinks = {

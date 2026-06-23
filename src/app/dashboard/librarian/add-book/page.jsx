@@ -1,9 +1,10 @@
 import React from 'react';
+import BookAddingForm from './BookaddingForm';
 
 const MembersPage = () => {
     return (
         <div>
-            <h1>members</h1>
+            <BookAddingForm></BookAddingForm>
         </div>
     );
 };
