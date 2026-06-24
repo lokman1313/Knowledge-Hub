@@ -17,3 +17,9 @@ catch(error){
 }
 
 }
+
+export const getToken=async()=>{
+    const session = await auth.api.getSession({
+        headers: await headers() })
+    return session?.session?.token || null
+}

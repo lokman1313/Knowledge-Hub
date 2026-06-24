@@ -20,9 +20,11 @@ const PaymentSuccessPage = async ({ searchParams }) => {
         bookId: metadata.bookId,
         title: metadata.title,
         price: metadata.price,
+        image:metadata.image,
         librarianId: metadata.librarianId,
         stripeSessionId: session_id,
         paymentStatus: "paid",
+        delevaryStatus:"pending",
         createdAt: new Date()
       };
 

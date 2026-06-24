@@ -12,7 +12,7 @@ const TrendingCategories = () => {
       title: "Fiction & Sci-Fi",
       count: "1,240 Books",
       icon: <FiCompass size={24} />,
-      href: "/browse?category=fiction",
+      href: "/browse?page=1&category=fiction",
       bgClass: "bg-blue-50 dark:bg-blue-950/30 text-blue-500",
     },
     {
@@ -20,7 +20,7 @@ const TrendingCategories = () => {
       title: "Technology & Coding",
       count: "850 Books",
       icon: <FiCpu size={24} />,
-      href: "/browse?category=technology",
+      href: "/browse?page=1&category=technology",
       bgClass: "bg-orange-50 dark:bg-orange-950/30 text-orange-500",
     },
     {
@@ -28,7 +28,7 @@ const TrendingCategories = () => {
       title: "Self-Development",
       count: "930 Books",
       icon: <FiAward size={24} />,
-      href: "/browse?category=self-development",
+      href: "/browse?page=1&category=self-development",
       bgClass: "bg-green-50 dark:bg-green-950/30 text-green-500",
     },
     {
@@ -36,7 +36,7 @@ const TrendingCategories = () => {
       title: "Business & Finance",
       count: "620 Books",
       icon: <FiBriefcase size={24} />,
-      href: "/browse?category=business",
+      href: "/browse?page=1&category=business",
       bgClass: "bg-purple-50 dark:bg-purple-950/30 text-purple-500",
     },
     {
@@ -44,7 +44,7 @@ const TrendingCategories = () => {
       title: "Biography & History",
       count: "410 Books",
       icon: <FiBook size={24} />,
-      href: "/browse?category=history",
+      href: "/browse?page=1&category=history",
       bgClass: "bg-amber-50 dark:bg-amber-950/30 text-amber-500",
     },
     {
@@ -52,7 +52,7 @@ const TrendingCategories = () => {
       title: "Romance & Poetry",
       count: "580 Books",
       icon: <FiHeart size={24} />,
-      href: "/browse?category=romance",
+      href: "/browse?page=1&category=romance",
       bgClass: "bg-pink-50 dark:bg-pink-950/30 text-pink-500",
     },
   ];

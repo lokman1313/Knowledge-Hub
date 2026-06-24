@@ -62,6 +62,7 @@ export async function POST(request) {
         userEmail: user.email,
         title: book.title,
         price: book.price,
+        image: book.coverImage,
         librarianId : book.librarianId,
       },
       mode: "payment",
