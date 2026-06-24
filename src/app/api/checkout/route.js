@@ -20,7 +20,7 @@ export async function POST(request) {
       );
     }
     const formData = await request.formData();
-    const bookId = formData.get("bookId");
+    let bookId = formData.get("bookId");
 
     if (!bookId) {
       return NextResponse.json(
@@ -69,10 +69,8 @@ export async function POST(request) {
       cancel_url: `${origin}/browse/${bookId}`,
     });
 
-    return NextResponse.redirect(
-      stripeSession.url,
-      303
-    );
+    return NextResponse.json({ url: stripeSession.url });
+
   } catch (error) {
     console.error(error);
 

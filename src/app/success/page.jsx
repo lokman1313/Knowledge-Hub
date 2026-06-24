@@ -1,8 +1,40 @@
 import Link from "next/link";
+import { stripe } from "@/lib/stripe";
+import { postPaymentDeteils } from "@/lib/action/payment";
 
-// Stripe payment সফল হলে এই page দেখাবে
+
 const PaymentSuccessPage = async ({ searchParams }) => {
-  const { book_id } = await searchParams;
+  const { session_id } = await searchParams;
+  let bookId = null;
+
+  if (session_id) {
+    try {
+      const session = await stripe.checkout.sessions.retrieve(session_id);
+      const metadata = session.metadata; 
+      
+      bookId = metadata.bookId; 
+
+      const paymentData = {
+        userId: metadata.userId,
+        userEmail: metadata.userEmail,
+        bookId: metadata.bookId,
+        title: metadata.title,
+        price: metadata.price,
+        librarianId: metadata.librarianId,
+        stripeSessionId: session_id,
+        paymentStatus: "paid",
+        createdAt: new Date()
+      };
+
+      const res = await postPaymentDeteils(paymentData);
+      
+      if (res.ok) {
+        console.log("Payment details with metadata saved to Express successfully!");
+      }
+    } catch (error) {
+      console.error("Error retrieving Stripe metadata or saving to Express:", error);
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -17,13 +49,13 @@ const PaymentSuccessPage = async ({ searchParams }) => {
 
         <h1 className="text-2xl font-bold mb-2">Payment Successful!</h1>
         <p className="text-gray-500 mb-8">
-          Your payment successfully complited. Thank you !
+          Your payment successfully completed. Thank you!
         </p>
 
         <div className="flex flex-col gap-3">
-          {book_id && (
+          {bookId && (
             <Link
-              href={`/browse/${book_id}`}
+              href={`/browse/${bookId}`}
               className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl transition"
             >
               ← Back to Book

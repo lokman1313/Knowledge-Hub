@@ -22,7 +22,6 @@ const BuyBookButton = ({ bookId, price }) => {
 
     try {
       const formData = new FormData();
-
       formData.append("bookId", bookId);
 
       const res = await fetch("/api/checkout", {
@@ -30,12 +29,12 @@ const BuyBookButton = ({ bookId, price }) => {
         body: formData,
       });
 
-      if (res.redirected) {
-        window.location.href = res.url;
+      const data = await res.json();
+
+      if (res.ok && data.url) {
+        window.location.href = data.url;
         return;
       }
-
-      const data = await res.json();
 
       throw new Error(data.error || "Checkout failed");
     } catch (error) {
