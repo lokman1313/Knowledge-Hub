@@ -1,10 +1,16 @@
 import { getBookDeteils } from "@/lib/apis/books";
 import Link from "next/link";
 import BuyBookButton from "@/components/browse/BuyBookButton";
+import { ReviewModal } from "@/components/ReviewModal"; 
+import { userReadedBooks } from "@/lib/apis/userBooks";
 
 const BookDetailsPage = async ({ params }) => {
   const { id } = await params;
   const book = await getBookDeteils(id);
+  const books = await userReadedBooks()
+  const bookReaded = books.some(bok => bok.bookId == book._id.toString())
+  console.log(bookReaded)
+
 
   if (!book) {
     return (
@@ -54,7 +60,9 @@ const BookDetailsPage = async ({ params }) => {
               ${book.price}
             </p>
           )}
-          <BuyBookButton bookId={book._id?.toString()} price={book.price} />
+          <div className="flex flex-wrap gap-3 items-center">
+            <BuyBookButton bookId={book._id?.toString()} price={book.price} />
+          </div>
         </div>
       </div>
 
@@ -85,6 +93,21 @@ const BookDetailsPage = async ({ params }) => {
           ) : null
         )}
       </div>
+      
+      {
+        bookReaded?
+      <div className="border border-dashed border-gray-300 rounded-xl p-5 my-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h3 className="text-sm font-semibold ">Do you finished the book?</h3>
+          <p className="text-xs  mt-0.5">Then shear your opinion about this book .</p>
+        </div>
+        <ReviewModal />
+      </div> : 
+      <div className="border border-dashed border-gray-300 rounded-xl p-5 my-4 ">
+         <p>Plase finished the book frist then you can review .</p>
+      </div>
+      }
+      {/* Review Section — UI */}
 
     </div>
   );
