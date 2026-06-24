@@ -1,5 +1,6 @@
 import { getBookDeteils } from "@/lib/apis/books";
 import Link from "next/link";
+import BuyBookButton from "@/components/browse/BuyBookButton";
 
 const BookDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -46,6 +47,14 @@ const BookDetailsPage = async ({ params }) => {
 
           <h1 className="text-2xl font-medium mb-1">{book.title}</h1>
           <p className="text-gray-500 mb-4">{book.author}</p>
+
+          {/* Price & Buy Button */}
+          {book.price > 0 && (
+            <p className="text-2xl font-bold text-orange-500 mb-3">
+              ${book.price}
+            </p>
+          )}
+          <BuyBookButton bookId={book._id?.toString()} price={book.price} />
         </div>
       </div>
 

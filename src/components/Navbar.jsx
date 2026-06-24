@@ -1,7 +1,7 @@
 "use client";
 import logo from "../../public/knowledgehub_icon_only.png";
 import { useState } from "react";
-import { Separator, Spinner } from "@heroui/react";
+import { Button, Separator, Spinner } from "@heroui/react";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import Image from "next/image";
@@ -31,7 +31,7 @@ export default function Navbar() {
         ...baseNavItems,
         {
           label: "Dashboard",
-          href: dashboardLinks[user.role] || dashboardLinks.user,
+          href: dashboardLinks[user.role] ,
         },
       ]
     : baseNavItems;
