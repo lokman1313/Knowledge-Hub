@@ -5,8 +5,11 @@ import { userReadedBooks } from "@/lib/apis/userBooks";
 import Image from "next/image";
 import { getBookDeteils } from "@/lib/apis/books";
 import ReviewContiner from "@/components/browse/ReviewContiner";
+import { userSession } from "@/lib/core/session";
+
 
 const BookDetailsPage = async ({ params }) => {
+  const user =await userSession()
   const { id } = await params;
   const book = await getBookDeteils(id);
   const books = await userReadedBooks()
@@ -62,7 +65,11 @@ const BookDetailsPage = async ({ params }) => {
             </p>
           )}
           <div className="flex flex-wrap gap-3 items-center">
-            <BuyBookButton bookId={book._id.toString()} price={book.price} />
+            {
+              user?.role == 'user' ? <BuyBookButton bookId={book._id.toString()} price={book.price} />
+              : <p className="text-red-400 font-semibold border border-orange-400 p-2 px-4 rounded-full">Only Reader can buy a Book</p>
+            }
+            
           </div>
         </div>
       </div>

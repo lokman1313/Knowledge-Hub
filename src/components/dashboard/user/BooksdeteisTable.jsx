@@ -5,13 +5,13 @@ import Image from "next/image";
 export default function BooksTable({ books }) {
   return (
     <div className="relative w-full">
-      <div className="w-full bg-[#1e1e1e] border border-zinc-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="w-full  border border-zinc-800 rounded-xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-zinc-400">
+          <table className="w-full text-left text-sm ">
             
             {/* TABLE HEAD */}
             <thead>
-              <tr className="border-b border-zinc-800 text-xs text-zinc-500">
+              <tr className="border-b border-zinc-800 text-xs ">
                 {[
                   "Cover",
                   "Title", 
@@ -35,7 +35,7 @@ export default function BooksTable({ books }) {
                 const isPending = book.approvalStatus === "pending";
 
                 return (
-                  <tr key={book._id} className="hover:bg-zinc-900/40 transition">
+                  <tr key={book._id} className="hover:bg-zinc-400/40 transition">
 
                     <td className="py-3 px-4">
                       <Image
@@ -47,7 +47,7 @@ export default function BooksTable({ books }) {
                       />
                     </td>
 
-                    <td className="py-3 px-4 truncate max-w-[140px] text-zinc-200">
+                    <td className="py-3 px-4 truncate max-w-[140px] ">
                       {book.title}
                     </td>
 

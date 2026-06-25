@@ -5,6 +5,6 @@ export const userReadedBooks =async()=>{
 }
 
 export const nonDelevaredBook =async()=>{
-    return protectedFetch("/api/delevary/librarian")
+    return protectedFetch("/api/notDelevary/user")
 }
 

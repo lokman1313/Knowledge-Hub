@@ -49,12 +49,12 @@ export default function BooksTable({ books }) {
 
   return (
     <div className="w-full">
-      <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-[#1e1e1e] shadow-xl">
+      <div className="overflow-hidden rounded-2xl border border-zinc-800  shadow-xl">
         <div className="overflow-x-auto">
-          <table className="min-w-[1100px] w-full text-left text-sm text-zinc-400">
+          <table className="min-w-[1100px] w-full text-left text-sm ">
             {/* Header */}
             <thead className="bg-zinc-900/50">
-              <tr className="border-b border-zinc-800 text-xs uppercase tracking-wider text-zinc-500">
+              <tr className="border-b border-zinc-800 text-xs uppercase tracking-wider ">
                 {[
                   "Cover",
                   "Title",
@@ -99,7 +99,7 @@ export default function BooksTable({ books }) {
 
                       {/* Title */}
                       <td className="px-4 py-3 max-w-[220px]">
-                        <p className="truncate font-medium text-zinc-100">
+                        <p className="truncate font-medium ">
                           {book.title}
                         </p>
                       </td>
@@ -120,7 +120,7 @@ export default function BooksTable({ books }) {
                       </td>
 
                       {/* Price */}
-                      <td className="px-4 py-3 font-medium text-zinc-200">
+                      <td className="px-4 py-3 font-medium ">
                         ${book.price}
                       </td>
 
@@ -192,7 +192,7 @@ export default function BooksTable({ books }) {
                 <tr>
                   <td
                     colSpan={10}
-                    className="py-12 text-center text-zinc-500"
+                    className="py-12 text-center "
                   >
                     No books found
                   </td>

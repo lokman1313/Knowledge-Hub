@@ -72,7 +72,7 @@ const TrendingCategories = () => {
             </p>
           </div>
           <Link 
-            href="/browse" 
+            href="/browse?page=1" 
             className="text-sm font-semibold text-orange-500 hover:text-orange-600 transition-colors"
           >
             See All Categories &rarr;

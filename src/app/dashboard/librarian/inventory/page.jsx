@@ -9,7 +9,7 @@ const BooksPage = async () => {
   const books = await getBookInventory(user?.id);
   return (
     <div className="p-6">
-      <h1 className="text-xl font-semibold text-zinc-100 mb-6">Book inventory</h1>
+      <h1 className="text-xl font-semibold  mb-6">Book inventory</h1>
       <BooksTable books={books} />
     </div>
   );
