@@ -1,5 +1,7 @@
 "use client";
 
+import { postReview } from "@/lib/action/review";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Label,
@@ -9,9 +11,37 @@ import {
   Surface,
   TextArea,
 } from "@heroui/react";
-import { FaBookOpen, FaStar } from "react-icons/fa"; 
+import { useRouter } from "next/navigation";
+import { FaBookOpen, FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
-export function ReviewModal() {
+export function ReviewModal({ book }) {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const router = useRouter()
+
+  const handelSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const payload = {
+    review: formData.get("review"),
+    rating: formData.get("book-rating"),
+    bookId : book?._id,
+    bookImage: book?.coverImage,
+    bookTitle : book?.title,
+    userId: user?.id,
+    userImage: user?.image,
+    userName: user?.name,
+  };
+
+  const res = await postReview(payload);
+  if(res){
+    toast.success("Thanks For Your Feedback")
+    router.refresh();
+  }
+};
   return (
     <Modal>
       <Button variant="secondary">Give a Review</Button>
@@ -21,17 +51,13 @@ export function ReviewModal() {
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Icon className="bg-accent-soft text-accent-soft-foreground flex items-center justify-center p-2 rounded-full w-10 h-10">
-                <FaBookOpen size={20} /> 
+                <FaBookOpen size={20} />
               </Modal.Icon>
               <Modal.Heading>Give Book Review</Modal.Heading>
-              
             </Modal.Header>
             <Modal.Body className="p-6">
               <Surface variant="default">
-                <form
-                  className="flex flex-col gap-4"
-                  onSubmit={(e) => e.preventDefault()}
-                >
+                <form className="flex flex-col gap-4" onSubmit={handelSubmit}>
                   <Label>Book Rating</Label>
                   <RadioGroup
                     defaultValue="5"

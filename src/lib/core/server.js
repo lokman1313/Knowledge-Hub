@@ -35,5 +35,18 @@ export const serverMutetion=async(path,data,method="POST")=>{
         body : JSON.stringify(data)
     })
 
-    return res
+    return res.json()
+}
+
+export const serverDeletetion=async(path)=>{
+    const res = await fetch(`${baseurl}${path}`,{
+        method : "DELETE",
+        headers : {
+            "Content-Type": "application/json",
+            ...await authHeader()
+        },
+        body : JSON.stringify()
+    })
+
+    return res.json()
 }

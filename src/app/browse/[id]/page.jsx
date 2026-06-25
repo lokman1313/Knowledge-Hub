@@ -1,15 +1,16 @@
-import { getBookDeteils } from "@/lib/apis/books";
 import Link from "next/link";
 import BuyBookButton from "@/components/browse/BuyBookButton";
 import { ReviewModal } from "@/components/ReviewModal"; 
 import { userReadedBooks } from "@/lib/apis/userBooks";
+import Image from "next/image";
+import { getBookDeteils } from "@/lib/apis/books";
+import ReviewContiner from "@/components/browse/ReviewContiner";
 
 const BookDetailsPage = async ({ params }) => {
   const { id } = await params;
   const book = await getBookDeteils(id);
   const books = await userReadedBooks()
   const bookReaded = books.some(bok => bok.bookId == book._id.toString())
-  console.log(bookReaded)
 
 
   if (!book) {
@@ -35,7 +36,7 @@ const BookDetailsPage = async ({ params }) => {
       <div className="flex gap-6 mb-6">
         <div className="w-36 h-52 min-w-[144px] rounded-lg bg-purple-100 flex items-center justify-center border border-gray-200">
           {book.coverImage ? (
-            <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover rounded-lg" />
+            <Image src={book.coverImage} alt={book.title} width={250} height={300} className="w-full h-full object-cover rounded-lg" />
           ) : (
             <span className="text-4xl text-purple-400">📖</span>
           )}
@@ -61,7 +62,7 @@ const BookDetailsPage = async ({ params }) => {
             </p>
           )}
           <div className="flex flex-wrap gap-3 items-center">
-            <BuyBookButton bookId={book._id?.toString()} price={book.price} />
+            <BuyBookButton bookId={book._id.toString()} price={book.price} />
           </div>
         </div>
       </div>
@@ -101,13 +102,16 @@ const BookDetailsPage = async ({ params }) => {
           <h3 className="text-sm font-semibold ">Do you finished the book?</h3>
           <p className="text-xs  mt-0.5">Then shear your opinion about this book .</p>
         </div>
-        <ReviewModal />
+        <ReviewModal book={book} />
       </div> : 
       <div className="border border-dashed border-gray-300 rounded-xl p-5 my-4 ">
          <p>Plase finished the book frist then you can review .</p>
       </div>
       }
       {/* Review Section — UI */}
+      <div className="border border-dashed border-gray-300 rounded-xl p-5 my-4">
+       <ReviewContiner bookId={book._id}></ReviewContiner>
+      </div>
 
     </div>
   );

@@ -9,7 +9,6 @@ try{
     const session = await auth.api.getSession({
     headers: await headers(),
   });
-  console.log(session)
   return session?.user
 }
 catch(error){
