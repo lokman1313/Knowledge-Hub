@@ -11,7 +11,6 @@ import {
   Tooltip
 } from 'recharts';
 
-// Delivered এর জন্য Tailwind Green (#10B981) এবং Pending এর জন্য Amber (#F59E0B)
 const COLORS = ['#10B981', '#F59E0B']; 
 const RADIAN = Math.PI / 180;
 

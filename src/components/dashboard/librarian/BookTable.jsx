@@ -1,7 +1,7 @@
 "use client";
 
 import { publishBook, unpublishBook } from "@/lib/action/books";
-import { Button } from "@heroui/react";
+import { Button, Table } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -47,161 +47,140 @@ export default function BooksTable({ books }) {
     rejected: "bg-red-500/10 text-red-400 border-red-500/20",
   };
 
+  const headers = [
+    { id: "cover", label: "Cover" },
+    { id: "title", label: "Title" },
+    { id: "author", label: "Author" },
+    { id: "category", label: "Category" },
+    { id: "language", label: "Language" },
+    { id: "price", label: "Price" },
+    { id: "year", label: "Year" },
+    { id: "approval", label: "Approval" },
+    { id: "status", label: "Status" },
+    { id: "actions", label: "Actions" },
+  ];
+
   return (
-    <div className="w-full">
-      <div className="overflow-hidden rounded-2xl border border-zinc-800  shadow-xl">
-        <div className="overflow-x-auto">
-          <table className="min-w-[1100px] w-full text-left text-sm ">
-            {/* Header */}
-            <thead className="bg-zinc-900/50">
-              <tr className="border-b border-zinc-800 text-xs uppercase tracking-wider ">
-                {[
-                  "Cover",
-                  "Title",
-                  "Author",
-                  "Category",
-                  "Language",
-                  "Price",
-                  "Year",
-                  "Approval",
-                  "Status",
-                  "Actions",
-                ].map((item) => (
-                  <th key={item} className="px-4 py-4 font-medium">
-                    {item}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+    <Table aria-label="Books Table">
+      <Table.ScrollContainer>
+        <Table.Content className="min-w-[1100px]">
+          {/* Header */}
+          <Table.Header >
+            {headers.map((item) => (
+              <Table.Column isRowHeader key={item.id} id={item.id}>
+                {item.label}
+              </Table.Column>
+            ))}
+          </Table.Header>
 
-            {/* Body */}
-            <tbody className="divide-y divide-zinc-800/60">
-              {books?.length > 0 ? (
-                books.map((book) => {
-                  const isPublished =
-                    book.publishStatus === "published";
+          {/* Body */}
+          <Table.Body emptyContent={"No books found"}>
+            {(books || []).map((book) => {
+              const isPublished = book.publishStatus === "published";
 
-                  return (
-                    <tr
-                      key={book._id}
-                      className="transition hover:bg-zinc-900/40"
+              return (
+                <Table.Row key={book._id} id={book._id}>
+                  {/* Cover */}
+                  <Table.Cell>
+                    <Image
+                      src={book.coverImage}
+                      alt={book.title}
+                      width={70}
+                      height={90}
+                      className="h-14 w-10 rounded-md border border-zinc-700 object-cover"
+                    />
+                  </Table.Cell>
+
+                  {/* Title */}
+                  <Table.Cell>
+                    <div className="max-w-[220px]">
+                      <p className="truncate font-medium">
+                        {book.title}
+                      </p>
+                    </div>
+                  </Table.Cell>
+
+                  {/* Author */}
+                  <Table.Cell>
+                    <div className="max-w-[160px]">
+                      <p className="truncate">{book.author}</p>
+                    </div>
+                  </Table.Cell>
+
+                  {/* Category */}
+                  <Table.Cell>
+                    <span className="capitalize">{book.category}</span>
+                  </Table.Cell>
+
+                  {/* Language */}
+                  <Table.Cell>
+                    <span className="capitalize">{book.language}</span>
+                  </Table.Cell>
+
+                  {/* Price */}
+                  <Table.Cell>
+                    <span className="font-medium">${book.price}</span>
+                  </Table.Cell>
+
+                  {/* Year */}
+                  <Table.Cell>
+                    {book.publicationYear}
+                  </Table.Cell>
+
+                  {/* Approval Status */}
+                  <Table.Cell>
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-medium ${
+                        approvalStyles[book.approvalStatus] ||
+                        "bg-zinc-500/10 text-zinc-400 border-zinc-500/20"
+                      }`}
                     >
-                      {/* Cover */}
-                      <td className="px-4 py-3">
-                        <Image
-                          src={book.coverImage}
-                          alt={book.title}
-                          width={70}
-                          height={90}
-                          className="h-14 w-10 rounded-md border border-zinc-700 object-cover"
-                        />
-                      </td>
+                      {book.approvalStatus}
+                    </span>
+                  </Table.Cell>
 
-                      {/* Title */}
-                      <td className="px-4 py-3 max-w-[220px]">
-                        <p className="truncate font-medium ">
-                          {book.title}
-                        </p>
-                      </td>
+                  {/* Publish Status */}
+                  <Table.Cell>
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-medium ${
+                        isPublished
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                          : "bg-zinc-500/10 text-zinc-400 border-zinc-500/20"
+                      }`}
+                    >
+                      {book.publishStatus}
+                    </span>
+                  </Table.Cell>
 
-                      {/* Author */}
-                      <td className="px-4 py-3 max-w-[160px]">
-                        <p className="truncate">{book.author}</p>
-                      </td>
-
-                      {/* Category */}
-                      <td className="px-4 py-3 capitalize">
-                        {book.category}
-                      </td>
-
-                      {/* Language */}
-                      <td className="px-4 py-3 capitalize">
-                        {book.language}
-                      </td>
-
-                      {/* Price */}
-                      <td className="px-4 py-3 font-medium ">
-                        ${book.price}
-                      </td>
-
-                      {/* Year */}
-                      <td className="px-4 py-3">
-                        {book.publicationYear}
-                      </td>
-
-                      {/* Approval Status */}
-                      <td className="px-4 py-3">
-                        <span
-                          className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                            approvalStyles[
-                              book.approvalStatus
-                            ] ||
-                            "bg-zinc-500/10 text-zinc-400 border-zinc-500/20"
-                          }`}
+                  {/* Actions */}
+                  <Table.Cell>
+                    <div className="flex flex-wrap gap-2">
+                      {isPublished ? (
+                        <Button
+                          size="sm"
+                          onPress={() => handelUnPublish(book._id)}
+                          className="border border-red-500/20 bg-red-500/10 text-red-400"
                         >
-                          {book.approvalStatus}
-                        </span>
-                      </td>
-
-                      {/* Publish Status */}
-                      <td className="px-4 py-3">
-                        <span
-                          className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                            isPublished
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                              : "bg-zinc-500/10 text-zinc-400 border-zinc-500/20"
-                          }`}
+                          Unpublish
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          onPress={() => handelPublish(book._id)}
+                          disabled={book.approvalStatus !== "approved"}
+                          className="border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          {book.publishStatus}
-                        </span>
-                      </td>
-
-                      {/* Actions */}
-                      <td className="px-4 py-3">
-                        <div className="flex flex-wrap gap-2">
-                          {isPublished ? (
-                            <Button
-                              size="sm"
-                              onClick={() =>
-                                handelUnPublish(book._id)
-                              }
-                              className="border border-red-500/20 bg-red-500/10 text-red-400"
-                            >
-                              Unpublish
-                            </Button>
-                          ) : (
-                            <Button
-                              size="sm"
-                              onClick={() =>
-                                handelPublish(book._id)
-                              }
-                              disabled={
-                                book.approvalStatus !== "approved"
-                              }
-                              className="border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
-                            >
-                              Publish
-                            </Button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td
-                    colSpan={10}
-                    className="py-12 text-center "
-                  >
-                    No books found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+                          Publish
+                        </Button>
+                      )}
+                    </div>
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table.Content>
+      </Table.ScrollContainer>
+    </Table>
   );
 }
