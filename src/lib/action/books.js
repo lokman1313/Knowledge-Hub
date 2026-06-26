@@ -13,3 +13,7 @@ export const unpublishBook=async(data , id)=>{
 export const publishBook=async(data , id)=>{
     return serverMutetion(`/api/book/publish/${id}`,data,"PATCH")
 }
+
+export const approveBook=async(data , id)=>{
+    return serverMutetion(`/api/approveBooks/${id}`,data,"PATCH")
+}

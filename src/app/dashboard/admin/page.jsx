@@ -1,6 +1,7 @@
-import React from 'react';
 
-const AdimDashboardPage = () => {
+
+const AdimDashboardPage = async() => {
+    
     return (
         <div>
             <h1>admin</h1>
