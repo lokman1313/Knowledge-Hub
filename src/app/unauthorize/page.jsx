@@ -102,8 +102,7 @@ export default function UnauthorizedPage() {
               animate="visible"
               className="flex flex-col sm:flex-row gap-3 w-full justify-center"
             >
-              <Button
-                as={Link}
+              <Link
                 href="/"
                 color="primary"
                 variant="solid"
@@ -113,10 +112,9 @@ export default function UnauthorizedPage() {
                 className="font-semibold"
               >
                 Go to home
-              </Button>
+              </Link>
 
-              <Button
-                as={Link}
+              <Link 
                 href="/browse?page=1"
                 color="default"
                 variant="flat"
@@ -126,7 +124,7 @@ export default function UnauthorizedPage() {
                 className="font-semibold"
               >
                 Browse books
-              </Button>
+              </Link>
             </motion.div>
 
           </div>
