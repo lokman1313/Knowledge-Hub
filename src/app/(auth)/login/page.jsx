@@ -100,7 +100,6 @@ const SignInClient = () => {
                   required
                   className="text-white placeholder:text-zinc-500 bg-transparent"
                 />
-
                 <InputGroup.Suffix>
                   <Button
                     isIconOnly
@@ -120,8 +119,7 @@ const SignInClient = () => {
                 </InputGroup.Suffix>
               </InputGroup>
             </TextField>
-
-            {/* ফরগট পাসওয়ার্ড (Orange) */}
+            
             <div className="flex justify-end">
               <Link
                 href="/forgot-password"
@@ -130,8 +128,7 @@ const SignInClient = () => {
                 Forgot Password?
               </Link>
             </div>
-
-            {/* মেইন সাবমিট বাটন (Orange) */}
+       
             <Button
               type="submit"
               isLoading={isLoading}
@@ -140,15 +137,13 @@ const SignInClient = () => {
               Sign In
             </Button>
           </form>
-
-          {/* ডিভাইডার */}
+      
           <div className="my-6 flex items-center gap-3">
             <Separator className="flex-1 bg-white/10" />
             <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">OR</span>
             <Separator className="flex-1 bg-white/10" />
           </div>
-
-          {/* গুগল সাইন ইন */}
+  
           <Button
             onPress={handelSignIn}
             isLoading={isGoogleLoading}
@@ -158,7 +153,6 @@ const SignInClient = () => {
             Sign in with Google
           </Button>
 
-          {/* সাইন আপ লিঙ্ক (Orange) */}
           <p className="text-center text-sm text-zinc-400 mt-6">
             Don't have an account?{" "}
             <Link

@@ -50,7 +50,7 @@ export default function Navbar() {
         {/* Logo Section */}
         <Link href={"/"}>
           
-          <p className="font-bold text-xl tracking-tight text-foreground">
+          <p className="font-bold text-2xl tracking-tight text-foreground">
             Knowledge<span className="text-orange-500">Hub</span>
           </p>
         </Link>

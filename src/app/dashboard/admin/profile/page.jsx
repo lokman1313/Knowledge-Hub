@@ -20,9 +20,9 @@ const ProfilePage = async () => {
         <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-6">
             
             {/* Profile Overview Card */}
-            <Card className="border border-gray-100 shadow-sm overflow-hidden bg-white">
+            <Card className="border border-gray-100 shadow-sm overflow-hidden ">
                 {/* Decorative Top Banner */}
-                <div className="h-32 w-full bg-gradient-to-r from-blue-600 to-indigo-700"></div>
+                <div className="h-32 w-full bg-linear-to-r from-blue-600 to-indigo-700"></div>
                 
                 <div className="relative pb-8 px-4 sm:px-8">
                     {/* Avatar (Brings upward into the banner) */}
@@ -41,7 +41,7 @@ const ProfilePage = async () => {
                     <div className="pt-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                         <div>
                             <div className="flex items-center gap-2 flex-wrap">
-                                <h1 className="text-2xl font-bold text-gray-950">{adminData.name}</h1>
+                                <h1 className="text-2xl font-bold ">{adminData.name}</h1>
                                 <Chip size="sm" color="success" variant="flat" className="font-medium">
                                     {adminData.status}
                                 </Chip>
@@ -68,28 +68,28 @@ const ProfilePage = async () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 {/* Account Details */}
-                <div className="md:col-span-2 bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
-                    <h2 className="text-lg font-bold text-gray-900 border-b border-gray-50 pb-2">
+                <div className="md:col-span-2  rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
+                    <h2 className="text-lg font-bold border-b  pb-2">
                         Account Information
                     </h2>
                     
                     <div className="space-y-4 pt-2">
-                        <div className="flex items-center gap-3 text-gray-600">
-                            <div className="p-2 bg-gray-50 rounded-lg text-gray-400">
+                        <div className="flex items-center gap-3 ">
+                            <div className="p-2 rounded-lg ">
                                 <FaEnvelope size={16} />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400 font-medium">Email Address</p>
+                                <p className="text-xs  font-medium">Email Address</p>
                                 <p className="text-sm font-semibold text-gray-800">{adminData.email}</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3 text-gray-600">
-                            <div className="p-2 bg-gray-50 rounded-lg text-gray-400">
+                        <div className="flex items-center gap-3 ">
+                            <div className="p-2  rounded-lg ">
                                 <FaCalendarAlt size={16} />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400 font-medium">Joined Since</p>
+                                <p className="text-xs  font-medium">Joined Since</p>
                                 <p className="text-sm font-semibold text-gray-800">{adminData.joinedDate}</p>
                             </div>
                         </div>
@@ -97,8 +97,8 @@ const ProfilePage = async () => {
                 </div>
 
                 {/* Quick Security Actions */}
-                <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
-                    <h2 className="text-lg font-bold text-gray-900 border-b border-gray-50 pb-2">
+                <div className=" rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
+                    <h2 className="text-lg font-bold  border-b pb-2">
                         Security
                     </h2>
                     
@@ -106,7 +106,7 @@ const ProfilePage = async () => {
                         <Button 
                             fullWidth
                             variant="light"
-                            startContent={<FaLock className="text-gray-400 text-xs" />}
+                            startContent={<FaLock className=" text-xs" />}
                             className="justify-start text-gray-700 font-medium text-sm hover:bg-gray-50"
                         >
                             Change Password
@@ -114,7 +114,7 @@ const ProfilePage = async () => {
                         <Button 
                             fullWidth
                             variant="light"
-                            startContent={<FaKey className="text-gray-400 text-xs" />}
+                            startContent={<FaKey className=" text-xs" />}
                             className="justify-start text-gray-700 font-medium text-sm hover:bg-gray-50"
                         >
                             Two-Factor Auth (2FA)
