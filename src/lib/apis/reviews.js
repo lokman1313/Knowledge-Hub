@@ -7,3 +7,6 @@ export const userReviews=async(id)=>{
 export const bookReviews=async(bookId)=>{
     return serverFetch(`/api/reviews/${bookId}`)
 }
+export const allReviews=async()=>{
+    return serverFetch(`/api/all/reviews`)
+}

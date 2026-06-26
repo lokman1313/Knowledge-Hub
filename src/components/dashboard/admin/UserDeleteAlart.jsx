@@ -1,6 +1,6 @@
 "use client";
 
-import { bookDelete } from "@/lib/apis/books";
+import { deleteUserPermanent } from "@/lib/action/users";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -9,13 +9,13 @@ export function UserDeleteAlart({ userId }) {
   const router = useRouter();
   const handleDelete = async () => {
     try {
-      const res = await bookDelete(userId);
+      const res = await deleteUserPermanent(userId);
       if (res) {
-        toast.warning("The User is delete permanently");
+        toast.warning(" Delete The User Permanently");
         router.refresh();
       }
     } catch (error) {
-      console.error("Failed to delete book", error);
+      console.error("Failed to delete user", error);
     }
   };
   return (
