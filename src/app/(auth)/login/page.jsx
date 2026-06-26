@@ -65,7 +65,7 @@ const SignInClient = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#121212] bg-gradient-to-b from-[#121212] to-black">
+    <section className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#121212] bg-linear-to-b from-[#121212] to-black">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#121212]/80 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-orange-500/20">
         <div className="p-8">
           

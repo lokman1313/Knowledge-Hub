@@ -18,17 +18,17 @@ export default function NotFound() {
         {/* Animated Icon */}
         <div className="flex justify-center ">
           <div className="relative h-28 w-28 rounded-full bg-default-100 dark:bg-default-50 flex items-center justify-center border border-default-200/50 shadow-xl group">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-secondary opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+            <div className="absolute inset-0 rounded-full bg-linear-to-tr from-primary to-secondary opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
             <FaRegQuestionCircle className="text-5xl text-primary animate-pulse" />
           </div>
         </div>
 
         {/* Big 404 Text */}
         <div className="relative inline-block select-none">
-          <h1 className="text-9xl md:text-[12rem] font-black tracking-tighter bg-gradient-to-b from-blue-400 via-red-400 to-secondary bg-clip-text text-transparent opacity-95 leading-none">
+          <h1 className="text-9xl md:text-[12rem] font-black tracking-tighter bg-linear-to-b from-blue-400 via-red-400 to-secondary bg-clip-text text-transparent opacity-95 leading-none">
             404
           </h1>
-          <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent blur-sm" />
+          <div className="absolute -bottom-2 left-0 right-0 h-1 bg-linear-to-r from-transparent via-primary/50 to-transparent blur-sm" />
         </div>
 
         {/* Title & Description */}

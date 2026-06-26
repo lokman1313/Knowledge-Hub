@@ -43,7 +43,7 @@ export default function Loading() {
         {/* Custom Progress Bar Tracking System */}
         <div className="h-[6px] w-full bg-default-100 rounded-full overflow-hidden relative">
           <motion.div 
-            className="h-full bg-gradient-to-r from-primary to-secondary-500 rounded-full"
+            className="h-full bg-linear-to-r from-primary to-secondary-500 rounded-full"
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
             transition={{ ease: "easeOut", duration: 0.2 }}
