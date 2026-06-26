@@ -1,4 +1,4 @@
-import { serverDeletetion, serverFetch } from "../core/server"
+import { protectedFetch, serverDeletetion, serverFetch } from "../core/server"
 
 export const getAllBooks =async(query)=>{
     return serverFetch(`/api/all/books?${query}`)
@@ -8,13 +8,14 @@ export const getBookDeteils =async(id)=>{
     return serverFetch(`/api/book/${id}`)
 }
 
+//---------admins-------
 export const getPendingBooks =async()=>{
-    return serverFetch(`/api/pendingBooks`)
+    return protectedFetch(`/api/pendingBooks`)
 }
 
 
 export const allBooksManupuletion =async()=>{
-    return serverFetch(`/api/allBooks`)
+    return protectedFetch(`/api/allBooks`)
 }
 
 

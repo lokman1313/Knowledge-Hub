@@ -91,9 +91,9 @@ export default function AdminDashboardChart({ paymentData = [], userData = [] })
             <div className="p-2 bg-indigo-50 rounded-lg text-indigo-500">
               <FaChartBar size={16} />
             </div>
-            <div>
+            <div className="text-center">
               <p className="text-tiny uppercase font-semibold text-default-400 tracking-wider">Analytics</p>
-              <h4 className="font-bold text-default-700 text-base">Top Books Revenue (৳)</h4>
+              <h4 className="font-bold text-default-700 text-base">Top Books Revenue ($)</h4>
             </div>
           </CardHeader>
           <Separator />
@@ -116,7 +116,7 @@ export default function AdminDashboardChart({ paymentData = [], userData = [] })
             <div className="p-2 bg-blue-50 rounded-lg text-blue-500">
               <FaChartLine size={16} />
             </div>
-            <div>
+            <div className="text-center">
               <p className="text-tiny uppercase font-semibold text-default-400 tracking-wider">Trends</p>
               <h4 className="font-bold text-default-700 text-base">Monthly Revenue Progress</h4>
             </div>
@@ -151,7 +151,7 @@ export default function AdminDashboardChart({ paymentData = [], userData = [] })
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-500">
               <FaChartPie size={16} />
             </div>
-            <div>
+            <div className="text-center">
               <p className="text-tiny uppercase font-semibold text-default-400 tracking-wider">Demographics</p>
               <h4 className="font-bold text-default-700 text-base">User Accounts Ratio</h4>
             </div>

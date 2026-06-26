@@ -1,6 +1,6 @@
-import { serverFetch } from "../core/server"
+import { protectedFetch } from "../core/server"
 
 
 export const allUser =async()=>{
-    return serverFetch("/api/all/users")
+    return protectedFetch("/api/all/users")
 }

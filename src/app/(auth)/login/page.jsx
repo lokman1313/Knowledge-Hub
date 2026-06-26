@@ -66,11 +66,9 @@ const SignInClient = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#121212] bg-gradient-to-b from-[#121212] to-black">
-      {/* গ্লাস-মরফিজম কার্ড উইথ অরেঞ্জ হোভার আভা */}
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#121212]/80 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-orange-500/20">
         <div className="p-8">
           
-          {/* হেডার টেক্সট */}
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold text-white tracking-tight">
               Welcome <span className="text-orange-500">Back</span>
@@ -80,7 +78,7 @@ const SignInClient = () => {
             </p>
           </div>
 
-          {/* ফর্ম সেকশন */}
+         
           <form onSubmit={handelSubmit} className="space-y-5">
             <TextField className="w-full text-white" name="email" type="email">
               <Label className="text-zinc-300 font-medium mb-1.5 block text-sm">Email</Label>

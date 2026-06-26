@@ -7,8 +7,9 @@ import Link from "next/link";
 import { FiArrowRight, FiBookOpen, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 export default function HeroBanner() {
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 (বাম) অথবা 1 (ডান)
+  const [direction, setDirection] = useState(0);
 
   const slides = [
     {
@@ -17,15 +18,15 @@ export default function HeroBanner() {
       subtitle: "Explore thousands of books, digital archives, and curated knowledge hubs right at your fingertips.",
       image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1920&auto=format&fit=crop", 
       ctaText: "Browse Books",
-      ctaHref: "/browse",
+      ctaHref: "/browse?page=1",
     },
     {
       id: 2,
       title: "Your Cozy Sanctuary for Learning",
       subtitle: "Dive deep into specialized study materials, research papers, and modern literature in a distraction-free environment.",
       image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1920&auto=format&fit=crop",
-      ctaText: "Go to Dashboard",
-      ctaHref: "/dashboard",
+      ctaText: "Browse Books",
+      ctaHref: "/browse?page=1",
     },
     {
       id: 3,
@@ -136,13 +137,13 @@ export default function HeroBanner() {
             transition={{ delay: 0.3 }}
             className="flex items-center gap-4 mt-2"
           >
-            <Button
-              as={Link}
+            <Link
+             
               href={currentSlide.ctaHref}
-              className="bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 py-5 rounded-lg shadow-lg shadow-orange-500/20 transition-all active:scale-95 flex items-center gap-2 text-sm md:text-base"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 py-2 rounded-lg shadow-lg shadow-orange-500/20 transition-all active:scale-95 flex items-center gap-2 text-sm md:text-base"
             >
               {currentSlide.ctaText} <FiArrowRight />
-            </Button>
+            </Link>
             <Button
               as={Link}
               href="#"

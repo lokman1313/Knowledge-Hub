@@ -1,6 +1,6 @@
-import { serverFetch } from "../core/server"
+import { protectedFetch } from "../core/server"
 
 
 export const allTranjections=()=>{
-    return serverFetch('/api/all/tranjections')
+    return protectedFetch('/api/all/tranjections')
 }
